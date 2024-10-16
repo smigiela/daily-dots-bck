@@ -13,13 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title', 255);
             $table->text('description')->nullable();
             $table->foreignIdFor(User::class)->constrained();
             $table->enum('status', ['new', 'in_progress', 'complete'])->default('new');
             $table->enum('type', ['task', 'meeting', 'visit'])->default('task');
-            $table->date('status_change_date')->nullable();
+            $table->dateTime('status_change_date')->nullable();
             $table->dateTime('due_date')->nullable();
             $table->dateTime('start_time')->nullable();
             $table->dateTime('stop_time')->nullable();

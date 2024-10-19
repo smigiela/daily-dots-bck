@@ -59,12 +59,11 @@ class TaskTest extends TestCase
 
         $taskInDb = $user->tasks()->create(Task::factory()->make()->toArray());
 
-        $newData = Task::factory()->make(['title' => 'edited title'])->toArray();
+        $newData = Task::factory()->make(['title' => 'edited title', 'user_id' => $user->id])->toArray();
 
         $response = $this->actingAs($user)->put('/api/tasks/' . $taskInDb->id, $newData);
         $response->assertStatus(200);
         $response->assertJson(['success' => true]);
-dd(Task::findOrFail($taskInDb->id));
-        self::assertSame(Task::findOrFail($taskInDb->id), $newData['title']);
+        $response->assertJson(['data' => ['title' => 'edited title']]);
     }
 }

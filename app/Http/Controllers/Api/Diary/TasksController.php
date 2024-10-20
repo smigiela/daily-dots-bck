@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api\Diary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Diary\Task\StoreTaskRequest;
 use App\Models\Diary\Task;
-use HttpResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class TasksController extends Controller
@@ -27,9 +25,7 @@ class TasksController extends Controller
         $data = $request->validated();
 
         try {
-            $task = Task::create($data);
-
-            auth()->user()->tasks()->save($task);
+            $task = auth()->user()->tasks()->save(Task::create($data));
         } catch (\Exception $e) {
             return response()->json(['success' => true, 'message' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }

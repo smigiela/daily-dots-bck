@@ -6,7 +6,6 @@ namespace Tests\Feature\Eloquent;
 use App\Models\Diary\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class TaskTest extends TestCase

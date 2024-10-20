@@ -41,7 +41,7 @@ class TasksController extends Controller
         $task = Task::findOrFail($id);
 
         if (auth()->id() !== $task->user_id) {
-            return response()->isServerError();
+            return response()->isNotFound();
         }
 
         return response()->json($task);
@@ -70,6 +70,10 @@ class TasksController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $task = Task::findOrFail($id);
+
+        if (auth()->id() !== $task->user_id) {
+            return response()->isNotFound();
+        }
     }
 }
